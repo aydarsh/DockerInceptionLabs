@@ -1,7 +1,7 @@
 require 'net/sftp'
 
 begin
-Net::SFTP.start('80.211.31.63', 'sftpuser', :password => 'Passw0rd', :port => 2222) do |sftp|
+Net::SFTP.start('<server>', '<username>', :password => '<password>', :port => 2222) do |sftp|
   sftp.dir.foreach("/") do |entry|
     puts entry.longname
   end

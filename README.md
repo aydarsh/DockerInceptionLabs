@@ -16,7 +16,7 @@ $ sudo docker container run --rm quadraticequation:1.0 0 2 -2
 ```
 
 ## projecteuler.net
-This is a Ruby script that does not require installation of any additional library, so there is no need for a custom built image.
+This is a Ruby script that does not require an installation of any additional library, so there is no need for a custom built image.
 
 You can run this script in the following way:
 ```shell extension
