@@ -32,4 +32,22 @@ $ sudo docker image build -t testsftp:1.0 .
 $ sudo docker container run --rm testsftp:1.0
 ```
 
+## testlamp
+Here in this lab a LAMP stack is built. 
+**L** [Debian Linux](https://store.docker.com/images/debian)
+**A** [The Apache HTTP Server](https://store.docker.com/images/httpd) 
+**M** [MariaDB Server](https://store.docker.com/images/mariadb) 
+**P** [PHP](https://store.docker.com/images/php) 
+
+These images are used in this lab. Additionally [SFTP Server](https://store.docker.com/community/images/atmoz/sftp) is run in a container too. Also, this lab features [volumes](https://docs.docker.com/storage/volumes/) and [user-defined bridge networks](https://docs.docker.com/network/bridge/).
+
+Let's see how this works:
+
+Firstly, we'll create named Volumes and User-defined bridge networks
+```shell extension
+# sudo docker network create -d bridge bg-net
+# sudo docker network create -d bridge fg-net
+# sudo docker volume create db-vol
+# sudo docker volume create httpd-vol
+```
 
