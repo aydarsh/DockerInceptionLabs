@@ -35,10 +35,10 @@ $ sudo docker container run --rm testsftp:1.0
 ## testlamp
 Here in this lab a LAMP stack is built. 
 
-**L** &nbsp;&nbsp;&nbsp; [Debian Linux](https://store.docker.com/images/debian)  
-**A** &nbsp;&nbsp;&nbsp; [The Apache HTTP Server](https://store.docker.com/images/httpd)   
-**M** &nbsp;&nbsp;&nbsp; [MariaDB Server](https://store.docker.com/images/mariadb)   
-**P** &nbsp;&nbsp;&nbsp; [PHP](https://store.docker.com/images/php)   
+**L** <pre>	</pre> [Debian Linux](https://store.docker.com/images/debian)  
+**A** <pre>	</pre> [The Apache HTTP Server](https://store.docker.com/images/httpd)   
+**M** <pre>	</pre> [MariaDB Server](https://store.docker.com/images/mariadb)   
+**P** <pre>	</pre> [PHP](https://store.docker.com/images/php)   
 
 In addition to the images listed above, [SFTP Server](https://store.docker.com/community/images/atmoz/sftp) is used here. Also, this lab features [volumes](https://docs.docker.com/storage/volumes/) and [user-defined bridge networks](https://docs.docker.com/network/bridge/).
 
