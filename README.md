@@ -44,11 +44,73 @@ In addition to the images listed above, [SFTP Server](https://store.docker.com/c
 
 Let's see how this works:
 
-Firstly, we'll create named Volumes and User-defined bridge networks
+Firstly, we'll create named volumes and user-defined bridge networks
 ```shell extension
-# sudo docker network create -d bridge bg-net
-# sudo docker network create -d bridge fg-net
+# sudo docker network create -d bridge be-net
+# sudo docker network create -d bridge fe-net
 # sudo docker volume create db-vol
 # sudo docker volume create httpd-vol
+```
+
+PHP here needs `mysqli` extension to use MariaDB, so a new image with this extension is built:
+```shell extension
+# sudo docker image build -t php_mysqli:apache .
+```
+
+After that a new apache container is run. This container is connected to both frontend (fe-net) and backend (be-net) networks. Also the volume httpd-vol is mounted into this container's /var/www/html directory.
+```shell extension
+# sudo docker container run -d -p 8080:80 --name my-httpd --network fe-net --mount type=volume,source=httpd-vol,destination=/var/www/html php_mysqli:apache
+# sudo docker network connect be-net my-httpd
+```
+
+Files for the apache server are copied to the httpd-vol via sftp. The sftp server can be setup in the following way. This container is connected to the fe-net network and the httpd-vol is mounted to the /var/www/html directory:
+```shell extension
+# sudo docker container run -d -p 2002:22 --name my-sftpd --network fe-net --mount type=volume,source=httpd-vol,destination=/var/www/html atmoz/sftp sftpuser:sftpuser
+# sudo docker container exec -ti my-sftpd bash
+my-sftpd> userdel -r sftpuser
+my-sftpd> passwd www-data  ## inception
+my-sftpd> exit
+```
+
+Now let's setup database. This container is connected to backend (be-net) network, it's port is not exposed to the Internet, so the database is not available from the Internet, but it's available within the be-net network. The apache server is connected to the be-net network, so it can reach the database.
+
+```shell extension
+# sudo docker container run -d --name my-mariadb --network be-net --mount type=volume,source=db-vol,destination=/var/lib/mysql -e MYSQL_ROOT_PASSWORD=inception mariadb
+# sudo docker container exec -ti my-mariadb bash
+## mysql -u root -p
+mariadb> create database ourdb;
+mariadb> use ourdb;
+mariadb> create table staff (
+-> id int not null auto_increment,
+-> name varchar(50),
+-> email varchar (100),
+-> company varchar(100),
+-> primary key (id)
+);
+```
+Following values can be inserted into the database:
+> No worries about personal data. These records are from random data generators.
+```shell extension
+mariadb> insert into staff (name, email, company) values
+("Nicholas","ultrices.posuere@aliquetsemut.edu","Consectetuer Industries"),
+("Rachel","sapien.Aenean.massa@quis.net","Cum Sociis Natoque Ltd"),
+("Urielle","faucibus.Morbi@Quisquenonummy.ca","Vitae Posuere Corp."),
+("Jescie","scelerisque.mollis.Phasellus@Praesentinterdumligula.com","Placerat Limited"),
+("Bianca","ac@loremvitaeodio.co.uk","Et Arcu Foundation");
+mariadb> select * from staff;
+```
+Additional steps for securing database are performed below:
+```shell extension
+mariadb> use mysql;
+mariadb> grant all privileges
+-> on ourdb.*
+-> to 'db_user'@'localhost'
+-> identified by 'inception';
+mariadb> grant all privileges
+-> on ourdb.*
+-> to 'db_user'@'%'
+-> identified by 'inception';
+mariadb> exit;
+## mysql_secure_installation
 ```
 
