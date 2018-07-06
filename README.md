@@ -130,7 +130,7 @@ root@my-mariadb> mysql_secure_installation
 root@my-mariadb> exit
 ```
 
-Now that we have configured our LAMP stack, we can check it. To perform that, download file [samplepage.php](https://github.com/aydarsh/DockerInceptionLabs/blob/master/testlamp/samplepage.php) from the `testlamp` directory onto your Desktop and copy it with WinSCP into the `html` directory. 
+Now that we have configured our LAMP stack, we can check it. To perform that, download files [samplepage.php](testlamp/samplepage.php) and [dbinfo.inc](testlamp/dbinfo.inc) from the `testlamp` directory onto your Desktop and copy them with WinSCP into the `html` directory. 
 
 Now open in your browser `http://<your-docker-host-IP>:8080/samplepage.php`. You should see the list of staff in your browser now. 
 
