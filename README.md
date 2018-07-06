@@ -73,9 +73,9 @@ Files for the apache server are copied to the httpd-vol via sftp. The sftp serve
 ```shell extension
 $ sudo docker container run -d -p 2002:22 --name my-sftpd --hostname my-sftpd --network front-net --mount type=volume,source=httpd-vol,destination=/var/www/html atmoz/sftp sftpuser:sftpuser
 $ sudo docker container exec -ti my-sftpd bash
-root@my-sftpd:/# userdel -r sftpuser
-root@my-sftpd:/# passwd www-data  ## inception
-root@my-sftpd:/# exit
+root@my-sftpd> userdel -r sftpuser
+root@my-sftpd> passwd www-data  ## inception
+root@my-sftpd> exit
 ```
 
 Now let's setup database. This container is connected to the db-net network, its port is not exposed to the Internet, so the database is not available from the Internet, but it's available within the db-net network. The apache server is connected to the db-net network, so it can reach the database.
