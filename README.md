@@ -92,7 +92,7 @@ Now let's setup database. This container is connected to the db-net network, its
 ```shell extension
 $ sudo docker container run -d --name my-mariadb --hostname my-mariadb --network db-net --mount type=volume,source=db-vol,destination=/var/lib/mysql -e MYSQL_ROOT_PASSWORD=inception mariadb
 $ sudo docker container exec -ti my-mariadb bash
-$$ mysql -u root -p  ## inception
+root@my-mariadb> mysql -u root -p  ## inception
 mariadb> create database ourdb;
 mariadb> use ourdb;
 mariadb> create table staff (
@@ -101,9 +101,9 @@ mariadb> create table staff (
 -> email varchar (100),
 -> company varchar(100),
 -> primary key (id)
-);
+-> );
 ```
-Following values can be inserted into the database:
+The values shown below can be inserted into the database:
 > No worries about personal data. These records are from random data generators.
 ```shell extension
 mariadb> insert into staff (name, email, company) values
