@@ -85,7 +85,7 @@ User name: www-data
 Password: inception
 ```
 > After that, copy `index.php` into the `html` directory.
-> Now open in your browser http://\<your-docker-host-IP\>:8080. You should see a greeting message in your browser now.
+> Now open in your browser `http://\<your-docker-host-IP\>:8080`. You should see a greeting message in your browser now.
 
 Now let's setup database. This container is connected to the db-net network, its port is not exposed to the Internet, so the database is not available from the Internet, but it's available within the db-net network. The apache server is connected to the db-net network, so it can reach the database.
 
@@ -132,7 +132,7 @@ root@my-mariadb> exit
 
 Now that we have configured our LAMP stack, we can check it. To perform that, download file [samplepage.php](https://github.com/aydarsh/DockerInceptionLabs/blob/master/testlamp/samplepage.php) from the `testlamp` directory onto your Desktop and copy it with WinSCP into the `html` directory. 
 
-Now open in your browser http://\<your-docker-host-IP\>:8080/samplepage.php. You should see the list of staff in your browser now. 
+Now open in your browser `http://\<your-docker-host-IP\>:8080/samplepage.php`. You should see the list of staff in your browser now. 
 
 Great job!
 
