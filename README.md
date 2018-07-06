@@ -90,9 +90,9 @@ Password: inception
 Now let's setup database. This container is connected to the db-net network, its port is not exposed to the Internet, so the database is not available from the Internet, but it's available within the db-net network. The apache server is connected to the db-net network, so it can reach the database.
 
 ```shell extension
-$ sudo docker container run -d --name my-mariadb --network db-net --mount type=volume,source=db-vol,destination=/var/lib/mysql -e MYSQL_ROOT_PASSWORD=inception mariadb
+$ sudo docker container run -d --name my-mariadb --hostname my-mariadb --network db-net --mount type=volume,source=db-vol,destination=/var/lib/mysql -e MYSQL_ROOT_PASSWORD=inception mariadb
 $ sudo docker container exec -ti my-mariadb bash
-$$ mysql -u root -p
+$$ mysql -u root -p  ## inception
 mariadb> create database ourdb;
 mariadb> use ourdb;
 mariadb> create table staff (
