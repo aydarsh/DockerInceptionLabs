@@ -51,6 +51,7 @@ Let's see how this works:
 
 Firstly, we'll create named volumes and user-defined bridge networks
 ```shell extension
+$ cd testlamp/
 $ sudo docker network create -d bridge db-net
 $ sudo docker network create -d bridge front-net
 $ sudo docker volume create db-vol
