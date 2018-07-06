@@ -46,8 +46,8 @@ Let's see how this works:
 
 Firstly, we'll create named volumes and user-defined bridge networks
 ```shell extension
-# sudo docker network create -d bridge be-net
-# sudo docker network create -d bridge fe-net
+# sudo docker network create -d bridge db-net
+# sudo docker network create -d bridge front-net
 # sudo docker volume create db-vol
 # sudo docker volume create httpd-vol
 ```
@@ -57,25 +57,25 @@ PHP here needs `mysqli` extension to use MariaDB, so a new image with this exten
 # sudo docker image build -t php_mysqli:apache .
 ```
 
-After that a new apache container is run. This container is connected to both frontend (fe-net) and backend (be-net) networks. Also the volume httpd-vol is mounted into this container's /var/www/html directory.
+After that a new apache container is run. This container is connected to both front-net and db-net networks. Also the volume httpd-vol is mounted into this container's /var/www/html directory.
 ```shell extension
-# sudo docker container run -d -p 8080:80 --name my-httpd --network fe-net --mount type=volume,source=httpd-vol,destination=/var/www/html php_mysqli:apache
-# sudo docker network connect be-net my-httpd
+# sudo docker container run -d -p 8080:80 --name my-httpd --network front-net --mount type=volume,source=httpd-vol,destination=/var/www/html php_mysqli:apache
+# sudo docker network connect db-net my-httpd
 ```
 
-Files for the apache server are copied to the httpd-vol via sftp. The sftp server can be setup in the following way. This container is connected to the fe-net network and the httpd-vol is mounted to the /var/www/html directory:
+Files for the apache server are copied to the httpd-vol via sftp. The sftp server can be setup in the following way. This container is connected to the front-net network and the httpd-vol is mounted to the /var/www/html directory:
 ```shell extension
-# sudo docker container run -d -p 2002:22 --name my-sftpd --network fe-net --mount type=volume,source=httpd-vol,destination=/var/www/html atmoz/sftp sftpuser:sftpuser
+# sudo docker container run -d -p 2002:22 --name my-sftpd --network front-net --mount type=volume,source=httpd-vol,destination=/var/www/html atmoz/sftp sftpuser:sftpuser
 # sudo docker container exec -ti my-sftpd bash
 my-sftpd> userdel -r sftpuser
 my-sftpd> passwd www-data  ## inception
 my-sftpd> exit
 ```
 
-Now let's setup database. This container is connected to backend (be-net) network, it's port is not exposed to the Internet, so the database is not available from the Internet, but it's available within the be-net network. The apache server is connected to the be-net network, so it can reach the database.
+Now let's setup database. This container is connected to the db-net network, its port is not exposed to the Internet, so the database is not available from the Internet, but it's available within the db-net network. The apache server is connected to the db-net network, so it can reach the database.
 
 ```shell extension
-# sudo docker container run -d --name my-mariadb --network be-net --mount type=volume,source=db-vol,destination=/var/lib/mysql -e MYSQL_ROOT_PASSWORD=inception mariadb
+# sudo docker container run -d --name my-mariadb --network db-net --mount type=volume,source=db-vol,destination=/var/lib/mysql -e MYSQL_ROOT_PASSWORD=inception mariadb
 # sudo docker container exec -ti my-mariadb bash
 ## mysql -u root -p
 mariadb> create database ourdb;
