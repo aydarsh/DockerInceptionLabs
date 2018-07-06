@@ -77,6 +77,14 @@ root@my-sftpd> userdel -r sftpuser
 root@my-sftpd> passwd www-data  ## inception
 root@my-sftpd> exit
 ```
+> You can now try this sftpd:httpd pair setup. In order that, download file [index.php](https://github.com/aydarsh/DockerInceptionLabs/blob/master/testlamp/index.php) from the `testlamp` directory onto your Desktop. Then, use WinSCP (or any other sftp client app) with the following credentials:
+> Host name: \<your-docker-host-IP\>
+> Port: 2002
+> User name: www-data
+> Password: inception
+>
+> After that, copy `index.php` into `html` directory.
+> Now open in your browser http://\<your-docker-host-IP\>:8080. You should see a greeting message in your browser now.
 
 Now let's setup database. This container is connected to the db-net network, its port is not exposed to the Internet, so the database is not available from the Internet, but it's available within the db-net network. The apache server is connected to the db-net network, so it can reach the database.
 
