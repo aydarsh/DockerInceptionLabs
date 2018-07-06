@@ -79,13 +79,10 @@ root@my-sftpd> exit
 ```
 > You can now try this sftpd:httpd pair setup. In order that, download file [index.php](https://github.com/aydarsh/DockerInceptionLabs/blob/master/testlamp/index.php) from the `testlamp` directory onto your Desktop. Then, use WinSCP (or any other sftp client app) with the following credentials:
 
-> Host name: \<your-docker-host-IP\>
-
-> Port: 2002
-
-> User name: www-data
-
-> Password: inception
+>> Host name: \<your-docker-host-IP\>
+>> Port: 2002
+>> User name: www-data
+>> Password: inception
 >
 > After that, copy `index.php` into `html` directory.
 > Now open in your browser http://\<your-docker-host-IP\>:8080. You should see a greeting message in your browser now.
