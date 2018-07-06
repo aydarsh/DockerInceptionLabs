@@ -1,4 +1,9 @@
 # 'Docker: Inception' Training Course Labs
+> You can download lab supporting materials with the following command:
+```shell extension
+$ git clone https://github.com/aydarsh/DockerInceptionLabs.git
+$ cd DockerInceptionLabs/
+```
 
 ## testjava
 ENTRYPOINT and CMD directives are used here.
