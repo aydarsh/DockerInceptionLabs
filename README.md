@@ -107,11 +107,11 @@ The values shown below can be inserted into the database:
 > No worries about personal data. These records are from random data generators.
 ```shell extension
 mariadb> insert into staff (name, email, company) values
-("Nicholas","ultrices.posuere@aliquetsemut.edu","Consectetuer Industries"),
-("Rachel","sapien.Aenean.massa@quis.net","Cum Sociis Natoque Ltd"),
-("Urielle","faucibus.Morbi@Quisquenonummy.ca","Vitae Posuere Corp."),
-("Jescie","scelerisque.mollis.Phasellus@Praesentinterdumligula.com","Placerat Limited"),
-("Bianca","ac@loremvitaeodio.co.uk","Et Arcu Foundation");
+-> ("Nicholas","ultrices.posuere@aliquetsemut.edu","Consectetuer Industries"),
+-> ("Rachel","sapien.Aenean.massa@quis.net","Cum Sociis Natoque Ltd"),
+-> ("Urielle","faucibus.Morbi@Quisquenonummy.ca","Vitae Posuere Corp."),
+-> ("Jescie","scelerisque.mollis.Phasellus@Praesentinterdumligula.com","Placerat Limited"),
+-> ("Bianca","ac@loremvitaeodio.co.uk","Et Arcu Foundation");
 mariadb> select * from staff;
 ```
 Additional steps for securing database are performed below:
@@ -126,6 +126,7 @@ mariadb> grant all privileges
 -> to 'db_user'@'%'
 -> identified by 'inception';
 mariadb> exit;
-$$ mysql_secure_installation
+root@my-mariadb> mysql_secure_installation
+root@my-mariadb> exit
 ```
 
