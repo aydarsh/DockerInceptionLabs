@@ -52,7 +52,7 @@ This is the diagram of our LAMP stack:
 
 Let's see how this works:
 
-Firstly, we'll create named volumes and user-defined bridge networks
+Firstly, we create named volumes and user-defined bridge networks:
 ```shell extension
 $ cd testlamp/
 $ sudo docker network create -d bridge db-net
@@ -66,7 +66,7 @@ PHP here needs `mysqli` extension to use MariaDB, so a new image with this exten
 $ sudo docker image build -t php_mysqli:apache .
 ```
 
-After that a new apache container is run. This container is connected to both front-net and db-net networks. Also the volume httpd-vol is mounted into this container's /var/www/html directory.
+After that a new apache container is run. This container is connected to both front-net and db-net networks. Also the volume httpd-vol is mounted into this container's /var/www/html directory:
 ```shell extension
 $ sudo docker container run -d -p 8080:80 --name my-httpd --network front-net --mount type=volume,source=httpd-vol,destination=/var/www/html php_mysqli:apache
 $ sudo docker network connect db-net my-httpd
@@ -90,7 +90,7 @@ Password: inception
 > After that, copy `index.php` into the `html` directory.
 > Now open in your browser `http://<your-docker-host-IP>:8080`. You should see a greeting message in your browser now.
 
-Now let's setup database. This container is connected to the db-net network, its port is not exposed to the Internet, so the database is not available from the Internet, but it's available within the db-net network. The apache server is connected to the db-net network, so it can reach the database.
+Now let's setup database. This container is connected to the db-net network, its port is not exposed to the Internet, so the database is not available from the Internet, but it's available within the db-net network. The apache server is connected to the db-net network, so it can reach the database:
 
 ```shell extension
 $ sudo docker container run -d --name my-mariadb --hostname my-mariadb --network db-net --mount type=volume,source=db-vol,destination=/var/lib/mysql -e MYSQL_ROOT_PASSWORD=inception mariadb
