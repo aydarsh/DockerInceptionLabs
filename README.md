@@ -47,6 +47,7 @@ Here in this lab a LAMP stack is built.
 
 In addition to the images listed above, [SFTP Server](https://store.docker.com/community/images/atmoz/sftp) is used here. Also, this lab features [volumes](https://docs.docker.com/storage/volumes/) and [user-defined bridge networks](https://docs.docker.com/network/bridge/).
 
+This is the diagram of our LAMP stack: ![LAMP diagram](testlamp/LAMP.png)
 Let's see how this works:
 
 Firstly, we'll create named volumes and user-defined bridge networks
