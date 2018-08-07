@@ -47,8 +47,8 @@ class QuadraticEquation {
 			x1 = (-b ) / (2*a);
 			alRoots.add(x1);	
 		} else if (discriminant.compareTo(new Double("0.0")) > 0) {
-			x1 = (-b + Math.sqrt(findDiscriminant())) / (2*a);
-			x2 = (-b - Math.sqrt(findDiscriminant())) / (2*a);
+			x1 = (-b + Math.sqrt(discriminant)) / (2*a);
+			x2 = (-b - Math.sqrt(discriminant)) / (2*a);
 			alRoots.add(x1);
 			alRoots.add(x2);
 		}
